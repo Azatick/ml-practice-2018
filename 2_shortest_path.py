@@ -12,7 +12,8 @@ def generate_points(end=10, count=1):
 def dist(a, b, axis=1):
     return np.linalg.norm(a - b, axis=axis)
 
-def euclidDistance(a, b):
+
+def euclid_distance(a, b):
     return math.sqrt(pow(a[0] - b[0], 2) + pow(a[1] - b[1], 2))
 
 
@@ -31,16 +32,14 @@ def algorithm(k=4, l=10):
     plt.ylim([-radius, y_boundary + radius])
     plt.scatter(points[:, 0], points[:, 1], s=10, c='r')
 
-    minDistances = np.zeros(l, dtype=[('x', 'i4'), ('y', 'f4')])
+    min_distances = np.zeros(l, dtype=[('x', 'i4'), ('y', 'f4')])
     for i in range(l):
         point = points[i]
         other_points_indexes = list(range(l))
         other_points_indexes.remove(i)
-        d = np.empty(l)
-        for j in other_points_indexes:
-            d[j] = euclidDistance(point, points[j])
-        print(i, d)
-        minDistances[i] = (np.nanargmin(d), np.nanmin(d))
-    print(minDistances)
+        d = np.array([euclid_distance(point, points[j]) for j in other_points_indexes])
+        min_distances[i] = (np.nanargmin(d), np.nanmin(d))
+    print(min_distances)
+
 
 algorithm()
