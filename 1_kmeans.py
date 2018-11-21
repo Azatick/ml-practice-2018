@@ -22,7 +22,6 @@ def kmeans(k=4, points=3000):
     center = np.mean(points, axis=0)
     # Находим радиус вписанной окружности
     radius = np.nanmax(dist(points, center))
-    temp_x, temp_y = np.zeros((2, k))
     # Соответсвие точки и её кластера
     clusters = np.zeros(len(points))
     # Цвета кластеров
@@ -41,6 +40,7 @@ def kmeans(k=4, points=3000):
     ]
     shuffle(cluster_colors)
     # Центры кластеров по осям
+    temp_x, temp_y = np.zeros((2, k))
     cluster_centers = np.array(list(zip(temp_x, temp_y)))
     # Массив, в котором будут хранится промежуточные
     # центры кластеров
