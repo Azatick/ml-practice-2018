@@ -20,7 +20,7 @@ def euclid_distance(a, b):
 def algorithm(k=4, l=10):
     plt.ion()
     # Генерируем вершины
-    points = generate_points(100, l)
+    points = generate_points(1000, l)
     # Находим центр масс
     center = np.mean(points, axis=0)
     # Находим радиус вписанной окружности
@@ -30,7 +30,11 @@ def algorithm(k=4, l=10):
 
     plt.xlim([-radius, x_boundary + radius])
     plt.ylim([-radius, y_boundary + radius])
-    plt.scatter(points[:, 0], points[:, 1], s=10, c='r')
+
+    for point in enumerate(points):
+        (index, [x, y]) = point
+        plt.scatter(x, y, s=10, c='r')
+        plt.text(x + 6, y + 6, index, fontsize=6)
 
     min_distances = np.zeros(l, dtype=[('x', 'i4'), ('y', 'f4')])
     for i in range(l):
@@ -39,7 +43,11 @@ def algorithm(k=4, l=10):
         other_points_indexes.remove(i)
         d = np.array([euclid_distance(point, points[j]) for j in other_points_indexes])
         min_distances[i] = (np.nanargmin(d), np.nanmin(d))
-    print(min_distances)
-
+    for fromAxis, distance in np.ndenumerate(min_distances):
+        toIndex = distance[0]
+        fromIndex = fromAxis[0]
+        [fromX, fromY] = points[fromIndex]
+        [toX, toY] = points[toIndex]
+        plt.plot([fromX, toX], [fromY, toY])
 
 algorithm()
