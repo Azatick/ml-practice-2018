@@ -37,12 +37,14 @@ def algorithm(k=4, l=10):
         plt.text(x + 6, y + 6, index, fontsize=6)
 
     min_distances = np.zeros(l, dtype=[('x', 'i4'), ('y', 'f4')])
+    # Ищем ближайшие друг к другу точки
     for i in range(l):
         point = points[i]
         other_points_indexes = list(range(l))
         other_points_indexes.remove(i)
         d = np.array([euclid_distance(point, points[j]) for j in other_points_indexes])
         min_distances[i] = (np.nanargmin(d), np.nanmin(d))
+    # Рисуем эти кратчайшие дистанции
     for fromAxis, distance in np.ndenumerate(min_distances):
         toIndex = distance[0]
         fromIndex = fromAxis[0]
