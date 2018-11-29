@@ -119,18 +119,19 @@ def algorithm(k=4, l=10):
     print(edges)
 
     # Удаляем k-1 длинных ребер
-    for i in list(range(k-1)):
+    for i in list(range(k - 1)):
         max_edge = max(edges, key=lambda t: t[2])
         max_index = edges.index(max_edge)
         edges.remove(max_edge)
         print(max_index)
         [from_x, from_y] = points[max_edge[0]]
         [to_x, to_y] = points[max_edge[1]]
-        plt.plot([from_x, to_x], [from_y, to_y], linestyle='None',)
+        plt.plot([from_x, to_x], [from_y, to_y], linestyle='None', )
         plots[max_index][0].remove()
         plt.draw()
         plt.pause(1)
     plt.draw()
     plt.pause(60)
+
 
 algorithm()
