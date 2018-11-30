@@ -51,6 +51,7 @@ p_s_d = np.array(
 def generate_data(count):
     return [random.choice([0, 1]) for i in range(count)]
 
+
 def algorithm():
     symptoms = generate_data(len(p_s_d))
 
@@ -84,5 +85,6 @@ def algorithm():
     print(diseases_table)
 
     print('Вероятно у пациента ' + diseases_label[result.argmax()])
+
 
 algorithm()
