@@ -18,27 +18,6 @@ def euclid_distance(a, b):
     return math.sqrt(pow(a[0] - b[0], 2) + pow(a[1] - b[1], 2))
 
 
-def get_points_min(points, insulated, uninsulated):
-    min_distances = np.zeros(len(points), dtype=[('x', 'i4'), ('y', 'i4'), ('z', 'f4')])
-    for point_index in insulated:
-        point = points[point_index]
-        d = np.array([euclid_distance(point, points[j]) for j in uninsulated])
-        np.put(d, point_index, sys.maxsize)
-        min_distances.put(point_index, (point_index, np.nanargmin(d), np.nanmin(d)))
-    min_distances_list = min_distances.tolist()
-    min_dist = min(min_distances_list, key=lambda t: t[2])
-    from_index = min_dist[0]
-    to_index = min_dist[1]
-    [from_x, from_y] = points[from_index]
-    [to_x, to_y] = points[to_index]
-    plt.plot([from_x, to_x], [from_y, to_y])
-    insulated.remove(from_index)
-    insulated.remove(to_index)
-    uninsulated.append(from_index)
-    uninsulated.append(to_index)
-    return (insulated, uninsulated)
-
-
 def algorithm(k=4, l=10):
     plt.ion()
     # Генерируем вершины
