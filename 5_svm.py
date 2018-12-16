@@ -23,10 +23,11 @@ class SVM:
 
         for it in range(1, iter_count):
             for i, x in enumerate(X):
+                lambda_ = (1 / it)
                 if (y[i] * np.dot(x, self.W)) < 1:
-                    self.W += eta * ((x * y[i]) + (-2 * (1 / it) * self.W))
+                    self.W += eta * ((x * y[i]) + (-2 * lambda_ * self.W))
                 else:
-                    self.W += eta * (-2 * (1/it) * self.W)
+                    self.W += eta * (-2 * lambda_ * self.W)
                 if it % 100 == 0:
                     print('Weight vector: ', self.W)
 
